@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadImages();
     loadBreeds();
   })
-  
+  let breeds = []
   function loadImages() {
     const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
   
@@ -39,4 +39,18 @@ document.addEventListener("DOMContentLoaded", function() {
         event.target.style.color = "blue";
       });
     });
+    const dogBreeds = document.getElementById('dog-breeds')
+    const dropDown = document.getElementById('breed-dropdown')
+    function createDogList(list){
+        let dogListArray = list.map(function(breed){
+            return `<li>${breed}</li>`
+        })
+        return dogListArray.join(" ")
+    }
+    dropDown.addEventListener('change', function(event){
+        const letter = event.target.value
+        const filter = breeds.filter((dog) => dog.startsWith(letter))
+        dogBreeds.innerHTML = createDogList(filter)
+    })
+
   }
